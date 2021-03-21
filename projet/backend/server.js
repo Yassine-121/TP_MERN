@@ -19,5 +19,7 @@ connection.once('open', () => {
 })
 
 app.listen(port, () => {
+	const usersRouter = require('./routes/users');
+	app.use('/users', usersRouter);
     console.log(`Server is running on port: ${port}`);
 });
