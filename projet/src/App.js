@@ -1,3 +1,5 @@
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from './logo.svg';
 import './App.css';
 
@@ -9,6 +11,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <h1>Yassine</h1>
         <a
           className="App-link"
           href="https://reactjs.org"
