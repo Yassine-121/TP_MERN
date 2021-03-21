@@ -1,10 +1,18 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 
+//Affiche tous les utilisateurs
 router.route('/users').get((req, res) => {
   User.find()
-  	.then(users => res.json('YES!!!'))
-    .catch(err => res.status(400).json('Yassine: ' + err));
+  	.then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+//Affiche un utilisateur
+router.route('/users/:id').get((req, res) => {
+	User.findById(req.params.id)
+		.then(users => res.json(users))
+		.catch(err => res.status(400).json('Error: ' + err));
 });
 
 /*router.route('/users/:page/:size').get((req, res) => {
@@ -12,7 +20,8 @@ router.route('/users').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });*/
 
-router.route('/add').post((req, res) => {
+//Ajoute un utlisateur
+router.route('/users').post((req, res) => {
   const username = req.body.username;
   const gender = req.body.gender;
   const dob = req.body.dob;
@@ -23,49 +32,33 @@ router.route('/add').post((req, res) => {
   const newUser = new User({username,gender,dob,news,email,photo});
 
   newUser.save()
-    .then(() => res.json('User added!'))
+    .then(() => res.json('Utilisateur ajouté avec succées!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').put((req, res) => {
-	const thing = new Thing({
-		_id: req.params.id,
-		username: req.body.username,
-		gender: req.body.gender,
-		dob: req.body.dob,
-		news: req.body.new,
-		email: req.body.email,
-		photo: req.body.photo,
-	});
-	Thing.updateOne({_id: req.params.id}, thing).then(
-		() => {
-			res.status(201).json({
-				message: 'Modifié avec succées!'
-			});
-		}
-	).catch(
-		(error) => {
-			res.status(400).json({
-				error: error
-			});
-		}
-	);
+//Modifie un utilisateur
+router.route('/users/:id').put((req, res) => {
+	User.findById(req.params.id)
+		.then(users => {
+			users.username = req.body.username;
+			users.gender = req.body.gender;
+			users.dob = Date.parse(req.body.dob);
+			users.news = req.body.news;
+			users.email = req.body.email;
+			users.photo = req.body.photo;
+
+			users.save()
+				.then(() => res.json('Utilisateur modifié avec succées!'))
+				.catch(err => res.status(400).json('Error: ' + err));
+		})
+		.catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/:id').delete((req, res) => {
-	Thing.deleteOne({_id: req.params.id}).then(
-		() => {
-			res.status(200).json({
-				message: 'Utilisateur Supprimer!'
-			});
-		}
-	).catch(
-		(error) => {
-			res.status(400).json({
-				error: error
-			});
-		}
-	);
+//Supprime un utilisateur
+router.route('/users/:id').delete((req, res) => {
+	User.findByIdAndDelete(req.params.id)
+		.then(() => res.json('Utilisateur supprimer avec succées!'))
+		.catch(err => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;
