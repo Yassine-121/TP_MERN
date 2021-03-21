@@ -2,7 +2,7 @@ const router = require('express').Router();
 let User = require('../models/user.model');
 
 //Affiche tous les utilisateurs
-router.route('/users').get((req, res) => {
+router.route('/AllUsers').get((req, res) => {
   User.find()
   	.then(users => res.json(users))
     .catch(err => res.status(400).json('Error: ' + err));

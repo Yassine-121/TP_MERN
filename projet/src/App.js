@@ -13,11 +13,12 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <Navbar/>
-        <Route path="/users" exact component={UserList}/>
-        <Route path="/users/:id" component={EditUser}/>
+        <Navbar/> 
         <Route path="/users" component={CreateUser}/>
+        <Route path="/AllUsers" exact component={UserList}/>
+        <Route path="/users/:id" component={EditUser}/>
         <Route path="/users/:id" component={RemoveUser}/>
+
 
       </div>
     </Router>
