@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -16,9 +17,9 @@ export default class CreateUser extends Component {
 
 		this.state = {
 			username: '',
-			gender: 0,
+			gender: 1,
 			dob: new Date(),
-			news: 0,
+			news: 1,
 			email: '',
 			photo: ''
 		}
@@ -26,44 +27,45 @@ export default class CreateUser extends Component {
 
 //Method to update the state properties
 	onChangeUsername(e){
-		this.state({
+		this.setState({
 			username: e.target.value
 		});
 	}
 
 	onChangeGender(e){
-		this.state({
+		this.setState({
 			gender: e.target.value
 		});
 	}
 
 	onChangeDob(dob){
-		this.state({
+		this.setState({
 			dob: dob
 		});
 	}
 
 	onChangeNews(e){
-		this.state({
-			News: e.target.value
+		this.setState({
+			news: e.target.value
 		});
 	}
 
 	onChangeEmail(e){
-		this.state({
-			Email: e.target.value
+		this.setState({
+			email: e.target.value
 		});
 	}
 
 	onChangePhoto(e){
-		this.state({
-			Photo: e.target.value
+		this.setState({
+			photo: e.target.value
 		});
 	}
 
 //Method to handle the submit event
 
 	onSubmit(e){
+		console.log('yes');
 		e.preventDefault();
 
 		const user = {
@@ -77,14 +79,17 @@ export default class CreateUser extends Component {
 
 		console.log(user);
 
-		window.location = '/';
+		axios.post('http://localhost:5555/users', user)
+  			 .then(res => console.log(res.data));
+
+		window.location = '/AllUsers';
 	}
 
   render() {
     return (
     	<div>
-		        <h5>Nouveau Utilisateur</h5>
-		    <form className="modal-content">
+		    <h5>Nouveau Utilisateur</h5>
+		    <form onSubmit={this.onSubmit}>
 
 		      	<div className="form-group">
 		      		<label htmlFor="">Username: </label>
@@ -96,7 +101,7 @@ export default class CreateUser extends Component {
 
 		      	<div className="form-group">
     				<label htmlFor="">Gender: </label>
-    				<select value={this.state.gender} onChange={this.handleChange}>
+    				<select value={this.state.gender} onChange={this.onChangeGender}>
     					<option value="1">Male</option>
     					<option value="0">Female</option>
     				</select>
@@ -107,14 +112,14 @@ export default class CreateUser extends Component {
 		      		<div>
  						<DatePicker
  							selected={this.state.dob}
- 							onChange={this.onChangeDate}
+ 							onChange={this.onChangeDob}
  						/>
 		      		</div>
 		      	</div>
 
 		      	<div className="form-group">
     				<label htmlFor="">News: </label>
-    				<select value={this.state.news} onChange={this.handleChange}>
+    				<select value={this.state.news} onChange={this.onChangeNews}>
     					<option value="1">Yes</option>
     					<option value="0">No</option>
     				</select>
@@ -136,8 +141,8 @@ export default class CreateUser extends Component {
 		      			   onChange={this.onChangePhoto}/>
 		      	</div>
 
-		      <div className="modal-footer">
-		        <button type="button" className="btn btn-primary">Saves</button>
+		      <div className="form-group">
+		        <input type="submit" value="Save" className="btn btn-primary"/>
 		      </div>
 		    </form>
 		</div>
