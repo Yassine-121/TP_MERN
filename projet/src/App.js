@@ -5,7 +5,7 @@ import './App.css';
 
 import Navbar from './components/navbar.component';
 import UsersList from './components/user-list.component';
-//import EditUser from './components/edit-user.component';
+import EditUser from './components/edit-user.component';
 import CreateUser from './components/create-user.component';
 //import RemoveUser from './components/remove-user.component';
 
@@ -15,9 +15,9 @@ function App() {
       <div className="container">
         <Navbar/> 
         <br/>
-        <Route path="/AllUsers"  render={()=> <UsersList />}/>
         <Route path="/users" render={()=> <CreateUser />} exact/>
-
+        <Route path="/edit/:id"  component={EditUser}/>
+        <Route path="/AllUsers"  render={()=> <UsersList />}/>
       </div>
     </Router>
   );

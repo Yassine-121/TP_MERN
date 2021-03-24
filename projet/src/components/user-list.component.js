@@ -24,18 +24,18 @@ export default class UsersList extends Component {
 	}
 
 	componentDidMount() {
-	  axios.get('http://localhost:5555/AllUsers')
-	   .then(response => {
-	     this.setState({ users: response.data });
-	   })
-	   .catch((error) => {
-	      console.log(error);
-	   })
+	  axios.get('http://localhost:5000/AllUsers')
+	   	   .then(response => {
+	     		this.setState({ users: response.data });
+	   		})
+	       .catch((error) => {
+	      		console.log(error);
+	   		})
 	}
 
 	deleteUser(id) {
-	  axios.delete('http://localhost:5555/users/'+id)
-	    .then(res => console.log(res.data));
+	  axios.delete('http://localhost:5000/users/'+id)
+	       .then(res => console.log(res.data));
 	  this.setState({
 	    users: this.state.users.filter(el => el._id !== id)
 	  })

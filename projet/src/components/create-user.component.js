@@ -58,7 +58,7 @@ export default class CreateUser extends Component {
 
 	onChangePhoto(e){
 		this.setState({
-			photo: e.target.value
+			photo: e.target.files[0]
 		});
 	}
 
@@ -78,18 +78,18 @@ export default class CreateUser extends Component {
 		};
 
 		console.log(user);
-
-		axios.post('http://localhost:5555/users', user)
+		console.log(user.photo.name)
+		axios.post('http://localhost:5000/users', user)
   			 .then(res => console.log(res.data));
 
-		window.location = '/AllUsers';
+		//window.location = '/AllUsers';
 	}
 
   render() {
     return (
     	<div>
 		    <h5>Nouveau Utilisateur</h5>
-		    <form onSubmit={this.onSubmit}>
+		    <form onSubmit={this.onSubmit} encType="multipart/form-data">
 
 		      	<div className="form-group">
 		      		<label htmlFor="">Username: </label>
@@ -135,9 +135,9 @@ export default class CreateUser extends Component {
 
 		      	<div className="form-group">
 		      		<label htmlFor="">Photo: </label>
-		      		<input type="text"
-		      			   className="form-control"
-		      			   value={this.state.photo}
+		      		<input type="file"
+		      			   className="file"
+		      			   filename="photo"
 		      			   onChange={this.onChangePhoto}/>
 		      	</div>
 
