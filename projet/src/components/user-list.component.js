@@ -7,9 +7,8 @@ const User = props => (
     <td>{props.user.username}</td>
     <td>{props.user.gender}</td>
     <td>{props.user.dob.substring(0,10)}</td>
-    <td>{props.user.news}</td>
     <td>{props.user.email}</td>
-    <td>{props.user.photo}</td>
+    <td><img src='./public/saylor.jpeg' alt=""/></td>
     <td>
       <Link to={"/edit/"+props.user._id}>edit</Link> | <button className="btn btn-outline-danger btn-sm" onClick={() => { props.deleteUser(props.user._id) }}>delete</button>
     </td>
@@ -24,7 +23,7 @@ export default class UsersList extends Component {
 	}
 
 	componentDidMount() {
-	  axios.get('http://localhost:5000/AllUsers')
+	  axios.get('http://localhost:5555/AllUsers')
 	   	   .then(response => {
 	     		this.setState({ users: response.data });
 	   		})
@@ -34,7 +33,7 @@ export default class UsersList extends Component {
 	}
 
 	deleteUser(id) {
-	  axios.delete('http://localhost:5000/users/'+id)
+	  axios.delete('http://localhost:5555/users/'+id)
 	       .then(res => console.log(res.data));
 	  this.setState({
 	    users: this.state.users.filter(el => el._id !== id)
@@ -57,7 +56,6 @@ export default class UsersList extends Component {
 			        <th>Username</th>
 			        <th>Gender</th>
 			        <th>dob</th>
-			        <th>News</th>
 			        <th>Email</th>
 			        <th>photo</th>
 			        <th>Action</th>

@@ -10,7 +10,6 @@ export default class CreateUser extends Component {
 		this.onChangeUsername = this.onChangeUsername.bind(this);
 		this.onChangeGender = this.onChangeGender.bind(this);
 		this.onChangeDob = this.onChangeDob.bind(this);
-		this.onChangeNews = this.onChangeNews.bind(this);
 		this.onChangeEmail = this.onChangeEmail.bind(this);
 		this.onChangePhoto = this.onChangePhoto.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -20,7 +19,6 @@ export default class CreateUser extends Component {
 			gender: 1,
 			dob: new Date(),
 			news: 1,
-			email: '',
 			photo: ''
 		}
 	}
@@ -41,12 +39,6 @@ export default class CreateUser extends Component {
 	onChangeDob(dob){
 		this.setState({
 			dob: dob
-		});
-	}
-
-	onChangeNews(e){
-		this.setState({
-			news: e.target.value
 		});
 	}
 
@@ -72,15 +64,15 @@ export default class CreateUser extends Component {
 			username: this.state.username,
 			gender: this.state.gender,
 			dob: this.state.dob,
-			news: this.state.news,
 			email: this.state.email,
 			photo: this.state.photo,
 		};
 
 		console.log(user);
 		console.log(user.photo.name)
-		axios.post('http://localhost:5000/users', user)
-  			 .then(res => console.log(res.data));
+		axios.post('http://localhost:5555/users', user)
+  			 .then(res => console.log(res.data))
+  			 .catch(err => console.log(err));
 
 		//window.location = '/AllUsers';
 	}
@@ -102,8 +94,8 @@ export default class CreateUser extends Component {
 		      	<div className="form-group">
     				<label htmlFor="">Gender: </label>
     				<select value={this.state.gender} onChange={this.onChangeGender}>
-    					<option value="1">Male</option>
-    					<option value="0">Female</option>
+    					<option value="Male">Male</option>
+    					<option value="Female">Female</option>
     				</select>
 		      	</div>
 
@@ -136,8 +128,6 @@ export default class CreateUser extends Component {
 		      	<div className="form-group">
 		      		<label htmlFor="">Photo: </label>
 		      		<input type="file"
-		      			   className="file"
-		      			   filename="photo"
 		      			   onChange={this.onChangePhoto}/>
 		      	</div>
 

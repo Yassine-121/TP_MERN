@@ -1,19 +1,28 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
 const path = require("path");
+const { v4: uuidv4 } = require('uuid');
 const multer = require("multer");
 
-var storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-      cb(null, 'public/uploads/');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/uploads/');
     },
-    filename: function (req, file, cb) {
-    	console.log(file);
-      cb(null, Date.now() + '-' +file.originalname);
+    filename: function(req, file, cb) {   
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
     }
-})
+});
 
-var upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(null, false);
+    }
+}
+
+var upload = multer({ storage, fileFilter });
 
 //Affiche tous les utilisateurs
 router.route('/AllUsers').get((req, res) => {
@@ -41,7 +50,7 @@ router.route('/users').post(upload.single('photo'),(req, res) => {
   const dob = req.body.dob;
   const news = req.body.news;
   const email = req.body.email;
-  const photo = req.file.path;
+  const photo = req.file;
 
   const newUser = new User({username,gender,dob,news,email,photo});
 

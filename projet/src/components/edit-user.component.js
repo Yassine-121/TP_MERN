@@ -11,7 +11,6 @@ export default class EditUser extends Component {
 		this.onChangeUsername = this.onChangeUsername.bind(this);
 		this.onChangeGender = this.onChangeGender.bind(this);
 		this.onChangeDob = this.onChangeDob.bind(this);
-		this.onChangeNews = this.onChangeNews.bind(this);
 		this.onChangeEmail = this.onChangeEmail.bind(this);
 		this.onChangePhoto = this.onChangePhoto.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -20,7 +19,6 @@ export default class EditUser extends Component {
 			username: '',
 			gender: 1,
 			dob: new Date(),
-			news: 1,
 			email: '',
 			photo: ''
 		}
@@ -30,13 +28,12 @@ export default class EditUser extends Component {
   componentDidMount() {
   	var chaine = this.props.match.params.id;
   	console.log(chaine)
-    axios.get('http://localhost:5000/edit/' + this.props.match.params.id)
+    axios.get('http://localhost:5555/edit/' + this.props.match.params.id)
       .then(res => {
         this.setState({
           username: res.data.username,
           gender: res.data.gender,
           dob: new Date(res.data.dob),
-          news: res.data.news,
           email: res.data.email,
           photo: res.data.photo
         });
@@ -65,12 +62,6 @@ export default class EditUser extends Component {
 		});
 	}
 
-	onChangeNews(e){
-		this.setState({
-			news: e.target.value
-		});
-	}
-
 	onChangeEmail(e){
 		this.setState({
 			email: e.target.value
@@ -90,12 +81,11 @@ export default class EditUser extends Component {
 		username: this.state.username,
 		gender: this.state.gender,
 		dob: this.state.dob,
-		news: this.state.news,
 		email: this.state.email,
 		photo: this.state.photo,
 	};
 
-    axios.put('http://localhost:5000/users/'+this.props.match.params.id,user)
+    axios.put('http://localhost:5555/users/'+this.props.match.params.id,user)
       .then((res) => {
         console.log(res.data)
         console.log('Student successfully updated')
@@ -104,7 +94,7 @@ export default class EditUser extends Component {
       })
 
     // Redirect to Student List 
-    this.props.history.push('/AllUsers')
+    window.location = '/AllUsers';
   }
 
 
@@ -126,8 +116,8 @@ export default class EditUser extends Component {
 		      	<div className="form-group">
     				<label htmlFor="">Gender: </label>
     				<select value={this.state.gender} onChange={this.onChangeGender}>
-    					<option value="1">Male</option>
-    					<option value="0">Female</option>
+    					<option value="Male">Male</option>
+    					<option value="Female">Female</option>
     				</select>
 		      	</div>
 
@@ -142,14 +132,6 @@ export default class EditUser extends Component {
 		      	</div>
 
 		      	<div className="form-group">
-    				<label htmlFor="">News: </label>
-    				<select value={this.state.news} onChange={this.onChangeNews}>
-    					<option value="1">Yes</option>
-    					<option value="0">No</option>
-    				</select>
-		      	</div>
-
-		      	<div className="form-group">
 		      		<label htmlFor="">Email: </label>
 		      		<input type="text"
 		      			   className="form-control"
@@ -161,7 +143,7 @@ export default class EditUser extends Component {
 		      		<label htmlFor="">Photo: </label>
 		      		<input type="file"
 		      			   className="file"
-		      			   filename="photo"
+		      			   name="photo"
 		      			   onChange={this.onChangePhoto}/>
 		      	</div>
 

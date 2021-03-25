@@ -6,7 +6,7 @@ const userSchema = new Schema(
  {
 
 	username : {type:String},
-	gender : {type:Boolean},
+	gender : {type:String},
 	dob : {type:Date}, // date de naissance
 	news : {type:Boolean},
 	email : {type:String},
