@@ -17,7 +17,7 @@ export default class EditUser extends Component {
 
 		this.state = {
 			username: '',
-			gender: 1,
+			gender: 'male',
 			dob: new Date(),
 			email: '',
 			photo: ''
@@ -85,7 +85,7 @@ export default class EditUser extends Component {
 		photo: this.state.photo,
 	};
 
-    axios.put('http://localhost:5555/users/'+this.props.match.params.id,user)
+    axios.put('http://localhost:5000/users/'+this.props.match.params.id,user)
       .then((res) => {
         console.log(res.data)
         console.log('Student successfully updated')

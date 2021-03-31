@@ -23,7 +23,7 @@ export default class UsersList extends Component {
 	}
 
 	componentDidMount() {
-	  axios.get('http://localhost:5555/AllUsers')
+	  axios.get('http://localhost:5000/AllUsers')
 	   	   .then(response => {
 	     		this.setState({ users: response.data });
 	   		})
@@ -33,7 +33,7 @@ export default class UsersList extends Component {
 	}
 
 	deleteUser(id) {
-	  axios.delete('http://localhost:5555/users/'+id)
+	  axios.delete('http://localhost:5000/users/'+id)
 	       .then(res => console.log(res.data));
 	  this.setState({
 	    users: this.state.users.filter(el => el._id !== id)

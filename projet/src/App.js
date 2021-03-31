@@ -7,7 +7,6 @@ import Navbar from './components/navbar.component';
 import UsersList from './components/user-list.component';
 import EditUser from './components/edit-user.component';
 import CreateUser from './components/create-user.component';
-//import RemoveUser from './components/remove-user.component';
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
         <br/>
         <Route path="/users" render={()=> <CreateUser />} exact/>
         <Route path="/edit/:id"  component={EditUser}/>
-        <Route path="/AllUsers"  render={()=> <UsersList />}/>
+        <Route path="/"  render={()=> <UsersList />}/>
       </div>
     </Router>
   );

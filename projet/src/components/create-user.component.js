@@ -16,9 +16,9 @@ export default class CreateUser extends Component {
 
 		this.state = {
 			username: '',
-			gender: 1,
+			gender: 'male',
 			dob: new Date(),
-			news: 1,
+			email: '',
 			photo: ''
 		}
 	}
@@ -70,7 +70,7 @@ export default class CreateUser extends Component {
 
 		console.log(user);
 		console.log(user.photo.name)
-		axios.post('http://localhost:5555/users', user)
+		axios.post('http://localhost:5000/users', user)
   			 .then(res => console.log(res.data))
   			 .catch(err => console.log(err));
 
