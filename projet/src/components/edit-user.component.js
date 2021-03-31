@@ -28,7 +28,7 @@ export default class EditUser extends Component {
   componentDidMount() {
   	var chaine = this.props.match.params.id;
   	console.log(chaine)
-    axios.get('http://localhost:5555/edit/' + this.props.match.params.id)
+    axios.get('http://localhost:5000/edit/' + this.props.match.params.id)
       .then(res => {
         this.setState({
           username: res.data.username,
@@ -94,7 +94,7 @@ export default class EditUser extends Component {
       })
 
     // Redirect to Student List 
-    window.location = '/AllUsers';
+    window.location = '/';
   }
 
 

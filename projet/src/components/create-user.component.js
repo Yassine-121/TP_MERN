@@ -74,7 +74,7 @@ export default class CreateUser extends Component {
   			 .then(res => console.log(res.data))
   			 .catch(err => console.log(err));
 
-		//window.location = '/AllUsers';
+		window.location = '/';
 	}
 
   render() {

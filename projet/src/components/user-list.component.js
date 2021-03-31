@@ -50,7 +50,7 @@ export default class UsersList extends Component {
 	    return (
 			<div>
 			  <h3>Liste des utilisateurs</h3>
-			  <table className="table table-striped">
+			  <table className="table table-striped" id="table_id">
 			    <thead className="thead-light">
 			      <tr>
 			        <th>Username</th>
