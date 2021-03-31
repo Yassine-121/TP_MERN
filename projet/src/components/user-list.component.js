@@ -10,7 +10,7 @@ const User = props => (
     <td>{props.user.email}</td>
     <td><img src='./public/saylor.jpeg' alt=""/></td>
     <td>
-      <Link to={"/edit/"+props.user._id}>edit</Link> | <button className="btn btn-outline-danger btn-sm" onClick={() => { props.deleteUser(props.user._id) }}>delete</button>
+      <Link to={"/edit/"+props.user._id}><i className="material-icons">sync</i></Link>  <i className="material-icons" onClick={() => { props.deleteUser(props.user._id) }}>delete</i>
     </td>
   </tr>
 )
@@ -23,7 +23,7 @@ export default class UsersList extends Component {
 	}
 
 	componentDidMount() {
-	  axios.get('http://localhost:5000/AllUsers')
+	  axios.get('http://localhost:5000/')
 	   	   .then(response => {
 	     		this.setState({ users: response.data });
 	   		})
